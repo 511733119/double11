@@ -1,0 +1,19 @@
+/*公共样式*/
+body{font-family:微软雅黑;font-size: 14px;}
+*{margin:0;padding:0;}
+img{border:0;}
+.fl{float:left;	}
+.fr{float:right;}
+.clear{clear:both;}
+.warp{width: 100%}
+a{text-decoration: none;color:#000;}	
+ul{list-style: none;}
+.header{width: 100%;height: auto;}
+.header_container{width: 100%;}
+.navigation_container,.section_container,.footer_container{width:600px; height:auto;margin:100px auto; clear:both;background-color: #fff;}
+
+.minicart{ float:right;margin:23px 0px 3px 0px; padding: 14px 10px 14px 40px; background:url(../images/cart_icon.png) no-repeat 7px center; position:relative; text-decoration:none;}
+ .minicart a{ text-decoration:none;} 
+ .minicart span{ color:#a29b95;}
+ .minicart span b{font-weight:bold;color: #F38256;}
+ .minicart span .price{color: #F38256;}

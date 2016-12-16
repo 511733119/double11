@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+    
+	<context:component-scan base-package="com.hjc.double11.."/>
+    <!-- 开启注解 DefaultAnnotationHandlerMapping:映射相应的类,DefaultAnnotationHandlerMapping相应的类方法 -->  
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"></bean>-->    
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></bean>-->  
+    
+	<bean id="urlHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/getAllProduct.do">categoryAction</prop>
+				<prop key="/getDetail.do">productAction</prop>
+				<prop key="/addSorder.do">sorderAction</prop>
+				<prop key="/saveForder.do">forderAction</prop>
+				<prop key="/login.do">userAction</prop>
+				<prop key="/register.do">registerAction</prop>
+				<!-- 双十一满减处理action -->
+				<prop key="Toconfirm.do">privilegeAction</prop>
+				<prop key="/ToMyPack.do">turnToMyPack</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+    
+	<bean id="categoryAction" class="com.hjc.double11.action.CategoryAction">
+		<property name="viewPage" value="AllProduct"/>
+	</bean>
+	<bean id="productAction" class="com.hjc.double11.action.ProductAction">
+		<property name="viewPage" value="detail"/>
+	</bean>
+	<bean id="sorderAction" class="com.hjc.double11.action.SorderAction">
+		<property name="viewPage" value="showCar"/>
+	</bean>
+	<bean id="orderValidator" class="com.hjc.double11.action.OrderValidator">
+	</bean>
+	<bean id="forderAction" class="com.hjc.double11.action.ForderAction">
+		<property name="validator" ref="orderValidator"/>
+		<property name="successView" value="index"/>
+		<property name="formView" value="user/confirm"/>
+	</bean>
+	<bean id="userAction" class="com.hjc.double11.action.UserAction">
+		<property name="successView" value="index"/>
+		<property name="formView" value="login"/>
+	</bean>
+	<bean id="registerValidator" class="com.hjc.double11.action.RegisterValidator">
+	</bean>
+	<bean id="registerAction" class="com.hjc.double11.action.RegisterAction">
+		<property name="validator" ref="registerValidator"/>
+		<property name="successView" value="index"/>
+		<property name="formView" value="register"/>
+	</bean>
+	<bean id="privilegeAction" class="com.hjc.double11.action.PrivilegeAction"/>
+	<bean id="turnToMyPack" class="com.hjc.double11.action.TurnToMyPackAction"/>
+</beans>
